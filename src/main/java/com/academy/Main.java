@@ -1,17 +1,12 @@
-package com.academy.controller;
+package com.academy;
 
-import com.academy.DataSource;
-
-import java.sql.Connection;
-import java.sql.SQLException;
+import com.academy.model.entity.Room;
+import com.academy.model.service.RoomService;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            Connection connection = DataSource.getInstance().getConnection();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        RoomService service = new RoomService();
+        Room room = service.prepareRoom(75, service.getAgeGroup(6));
+        System.out.println(service.findToysInRoomByPrice(room, 100));
     }
 }

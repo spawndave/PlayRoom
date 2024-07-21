@@ -1,13 +1,11 @@
 package com.academy.model.dao;
 
+import com.academy.model.entity.Toy;
 import com.academy.model.entity.User;
 
 import java.util.List;
 
-public interface IUserDao extends IDefaultDao<User> {
-    void create(User user);
-    void update(User user);
-    void delete(User user);
-    User findById(int id);
-    List<User> findAll();
+public interface IToyDao extends IDefaultDao<Toy> {
+    List<Toy> findToysByAge(int age);
+    List<Toy> getBestVariant(double sum, List<Toy> toyList, List<Toy> newToyList);
 }

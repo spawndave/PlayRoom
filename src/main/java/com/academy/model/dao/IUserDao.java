@@ -1,13 +1,9 @@
 package com.academy.model.dao;
 
-import com.academy.model.entity.AgeGroup;
+import com.academy.model.entity.User;
 
 import java.util.List;
 
-public interface IAgeGroupDao extends IDefaultDao<AgeGroup> {
-    void create(AgeGroup user);
-    void update(AgeGroup user);
-    void delete(AgeGroup user);
-    AgeGroup findById(int id);
-    List<AgeGroup> findAll();
+public interface IUserDao extends IDefaultDao<User> {
+    List<User> findAllByAge(int age);
 }

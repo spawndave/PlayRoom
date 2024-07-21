@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.academy</groupId>
-  <artifactId>PlayingRoom</artifactId>
+  <artifactId>PlayRoom</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>PlayingRoom</name>
+  <name>PlayRoom</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,27 +17,46 @@
   </properties>
 
   <dependencies>
-<dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.0.0</version>
-      <scope>provided</scope>
+    <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>9.0.0</version>
     </dependency>
-<dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
+    <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.10.1</version>
     </dependency>
+      <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql -->
       <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>  </dependencies>
+          <groupId>org.flywaydb</groupId>
+          <artifactId>flyway-mysql</artifactId>
+          <version>10.15.2</version>
+      </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.32</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
+        <plugin>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>10.15.2</version>
+            <configuration>
+                <locations>
+                    <location>filesystem:src/main/resources/migrations</location>
+                </locations>
+                <url>jdbc:mysql://localhost:3306/play_room</url>
+                <user>root</user>
+                <password>rootpass</password>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
 </project>
