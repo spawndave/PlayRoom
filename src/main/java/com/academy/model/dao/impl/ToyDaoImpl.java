@@ -1,9 +1,9 @@
 package com.academy.model.dao.impl;
 
 import com.academy.DataSource;
-import com.academy.model.dao.IToyDao;
+import com.academy.model.dao.ToyDao;
+import com.academy.model.entity.Room;
 import com.academy.model.entity.Toy;
-import com.academy.model.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToyDaoImpl implements IToyDao {
+public class ToyDaoImpl implements ToyDao {
 
     @Override
     public List<Toy> findToysByAge(int age) {
@@ -20,7 +20,9 @@ public class ToyDaoImpl implements IToyDao {
                 "LEFT JOIN play_room.size ON play_room.toy.size_id = play_room.size.id " +
                 "LEFT JOIN play_room.agegroup ON play_room.toy.age_group_id = play_room.agegroup.id " +
                 "AND play_room.agegroup.age <= ?";
-        try(PreparedStatement statement = getPreparedStatement(sql)) {
+        try(Connection connection = DataSource.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
             statement.setInt(1, age);
             ResultSet resultSet = statement.executeQuery();
             List<Toy> toys = new ArrayList<>();
@@ -41,22 +43,15 @@ public class ToyDaoImpl implements IToyDao {
     }
 
     @Override
-    public List<Toy> getBestVariant(double sum, List<Toy> toyList, List<Toy> newToyList){
-        for (int i=0; i < toyList.size(); i++) {
-            Toy toy = toyList.get(i);
-            if(sum >= toy.getPrice()){
-                newToyList.add(toy);
-                getBestVariant(sum - toy.getPrice(), toyList, newToyList);
-                break;
-            }
-        }
+    public List<Toy> getBestVariant(Room room, List<Toy> toyList, List<Toy> newToyList){
+        toyList.forEach(toy -> {
+                    if(room.getTotalSum() >= toy.getPrice()){
+                        newToyList.add(toy);
+                        room.setTotalSum(room.getTotalSum() - toy.getPrice());
+                        getBestVariant(room, toyList, newToyList);
+                    }
+                });
         return newToyList;
-    }
-
-    private static PreparedStatement getPreparedStatement(String sql) throws SQLException {
-        Connection connection = DataSource.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        return statement;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.academy.model.dao.impl;
 
 import com.academy.DataSource;
-import com.academy.model.dao.IUserDao;
+import com.academy.model.dao.UserDao;
 import com.academy.model.entity.User;
 
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl implements IUserDao {
+public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAllByAge(int age) {

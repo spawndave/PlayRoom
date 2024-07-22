@@ -1,7 +1,7 @@
 package com.academy.model.service;
 
-import com.academy.model.dao.IRoomDao;
-import com.academy.model.dao.IUserDao;
+import com.academy.model.dao.RoomDao;
+import com.academy.model.dao.UserDao;
 import com.academy.model.dao.impl.RoomDaoImpl;
 import com.academy.model.dao.impl.UserDaoImpl;
 import com.academy.model.entity.AgeGroup;
@@ -14,8 +14,8 @@ public class RoomService {
 
     public Room prepareRoom(int totalSum, AgeGroup ageGroup){
         ToyService toyService = new ToyService();
-        IRoomDao roomDao = new RoomDaoImpl();
-        IUserDao userDao = new UserDaoImpl();
+        RoomDao roomDao = new RoomDaoImpl();
+        UserDao userDao = new UserDaoImpl();
         Room room = new Room(totalSum, ageGroup);
         room.setTotalSum(totalSum);
         room.setUsers(userDao.findAllByAge(room.getAgeGroup().getAge()));
@@ -30,7 +30,7 @@ public class RoomService {
     }
 
     public AgeGroup getAgeGroup(int age){
-        IRoomDao roomDao = new RoomDaoImpl();
+        RoomDao roomDao = new RoomDaoImpl();
         return roomDao.getAgeGroup(age);
     }
 }

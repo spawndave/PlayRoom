@@ -1,14 +1,11 @@
 package com.academy.model.service;
 
-import com.academy.model.dao.IToyDao;
+import com.academy.model.dao.ToyDao;
 import com.academy.model.dao.impl.ToyDaoImpl;
 import com.academy.model.entity.Room;
 import com.academy.model.entity.Toy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ToyService {
@@ -26,9 +23,9 @@ public class ToyService {
     }
 
     public List<Toy> selectToysInRoomByPrice(Room room){
-        IToyDao toyDao = new ToyDaoImpl();
+        ToyDao toyDao = new ToyDaoImpl();
         List<Toy> toys = sortToysByPrice(toyDao.findToysByAge(room.getAgeGroup().getAge()));
-        return toyDao.getBestVariant(room.getTotalSum(), toys, new ArrayList<Toy>());
+        return toyDao.getBestVariant(room, toys, new ArrayList<Toy>());
     }
 
     public List<Toy> filterToysByPriceInRoom(List<Toy> toys, double price){

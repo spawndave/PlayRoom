@@ -4,6 +4,6 @@ import com.academy.model.entity.User;
 
 import java.util.List;
 
-public interface IUserDao extends IDefaultDao<User> {
+public interface UserDao extends DefaultDao<User> {
     List<User> findAllByAge(int age);
 }

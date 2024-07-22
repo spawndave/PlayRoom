@@ -1,7 +1,7 @@
 package com.academy.model.dao.impl;
 
 import com.academy.DataSource;
-import com.academy.model.dao.IRoomDao;
+import com.academy.model.dao.RoomDao;
 import com.academy.model.entity.AgeGroup;
 import com.academy.model.entity.Room;
 import com.academy.model.entity.Toy;
@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RoomDaoImpl implements IRoomDao {
+public class RoomDaoImpl implements RoomDao {
 
     @Override
     public void createOrUpdate(Room room) {
@@ -63,7 +63,8 @@ public class RoomDaoImpl implements IRoomDao {
     public AgeGroup getAgeGroup(int age){
         AgeGroup ageGroup = new AgeGroup();
         String selectSql = "SELECT * FROM agegroup WHERE age >=? ORDER BY age ASC LIMIT 1";
-        try(PreparedStatement statement = getPreparedStatement(selectSql)
+        try(Connection connection = DataSource.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(selectSql);
         ) {
             statement.setInt(1, age);
             ResultSet resultSet = statement.executeQuery();
@@ -78,7 +79,6 @@ public class RoomDaoImpl implements IRoomDao {
         return ageGroup;
     }
 
-
     @Override
     public Room findById(int id) {
         return null;
@@ -87,11 +87,5 @@ public class RoomDaoImpl implements IRoomDao {
     @Override
     public List<Room> findAll() {
         return List.of();
-    }
-
-    private static PreparedStatement getPreparedStatement(String sql) throws SQLException {
-        Connection connection = DataSource.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        return statement;
     }
 }
