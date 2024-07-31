@@ -16,7 +16,7 @@ public class RoomService {
         ToyService toyService = new ToyService();
         RoomDao roomDao = new RoomDaoImpl();
         UserDao userDao = new UserDaoImpl();
-        Room room = roomDao.findById(1,Room.class);
+        Room room = roomDao.findById(1);
         room.setTotalSum(totalSum);
         //room.setUsers(userDao.findAllByAge(room.getAgeGroup().getAge()));
         room.setToys(toyService.selectToysInRoomByPrice(room));

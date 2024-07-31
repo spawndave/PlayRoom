@@ -2,13 +2,15 @@ package com.academy.model.dao.impl;
 
 import com.academy.DataSource;
 import com.academy.model.dao.DefaultDao;
-import com.academy.model.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
-import java.util.List;
-
 public class DefaultDaoIml<T> implements DefaultDao<T> {
+    private Class<T> type;
+
+    public DefaultDaoIml(Class<T> type) {
+        this.type = type;
+    }
 
     @Override
     public void createOrUpdate(T entity) {
@@ -27,7 +29,7 @@ public class DefaultDaoIml<T> implements DefaultDao<T> {
     }
 
     @Override
-    public <T> T findById(Integer id, Class<T> type) {
+    public T findById(Integer id) {
         EntityManager entityManager = DataSource.getInstance().getEntityManager();
         Query query = entityManager.createQuery("FROM "+type.getName()+" t WHERE t.id =: id");
         query.setParameter("id", id);

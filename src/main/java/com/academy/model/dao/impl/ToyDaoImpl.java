@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ToyDaoImpl extends DefaultDaoIml<Toy> implements ToyDao {
 
+    public ToyDaoImpl() {
+        super(Toy.class);
+    }
 
     @Override
     public List<Toy> findToysByAge(int age) {

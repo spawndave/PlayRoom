@@ -11,6 +11,10 @@ import java.util.List;
 
 public class UserDaoImpl extends DefaultDaoIml<User> implements UserDao {
 
+    public UserDaoImpl() {
+        super(User.class);
+    }
+
     @Override
     public List<User> findAll() {
         EntityManager entityManager = DataSource.getInstance().getEntityManager();
