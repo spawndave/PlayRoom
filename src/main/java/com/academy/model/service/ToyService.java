@@ -18,7 +18,7 @@ public class ToyService {
 
     public List<Toy> sortToysBySize(List<Toy> toys){
         Toy[] toysCopy = toys.toArray(new Toy[0]);
-        Arrays.sort(toysCopy, Comparator.comparingLong(Toy::getSizeId));
+        Arrays.sort(toysCopy, Comparator.comparingLong(toy-> toy.getSize().getId()));
         return Arrays.asList(toysCopy);
     }
 

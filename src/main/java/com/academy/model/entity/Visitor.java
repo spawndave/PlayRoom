@@ -5,10 +5,9 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity
-public class AgeGroup {
+public class Visitor {
     @Id
-    private Long id;
-    private int age;
-    private String description;
+    private Long userId;
+    @Id
+    private Long room_id;
 }

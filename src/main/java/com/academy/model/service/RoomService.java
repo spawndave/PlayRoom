@@ -16,9 +16,9 @@ public class RoomService {
         ToyService toyService = new ToyService();
         RoomDao roomDao = new RoomDaoImpl();
         UserDao userDao = new UserDaoImpl();
-        Room room = new Room(totalSum, ageGroup);
+        Room room = roomDao.findById(1,Room.class);
         room.setTotalSum(totalSum);
-        room.setUsers(userDao.findAllByAge(room.getAgeGroup().getAge()));
+        //room.setUsers(userDao.findAllByAge(room.getAgeGroup().getAge()));
         room.setToys(toyService.selectToysInRoomByPrice(room));
         roomDao.createOrUpdate(room);
         return room;
@@ -29,8 +29,8 @@ public class RoomService {
         return toyService.filterToysByPriceInRoom(room.getToys(), price);
     }
 
-    public AgeGroup getAgeGroup(int age){
+    /*public AgeGroup getAgeGroup(int age){
         RoomDao roomDao = new RoomDaoImpl();
         return roomDao.getAgeGroup(age);
-    }
+    }*/
 }

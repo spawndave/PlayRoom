@@ -23,12 +23,6 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>9.0.0</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.10.1</version>
-    </dependency>
       <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql -->
       <dependency>
           <groupId>org.flywaydb</groupId>
@@ -40,9 +34,15 @@
       <artifactId>lombok</artifactId>
       <version>1.18.32</version>
     </dependency>
+      <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+      <dependency>
+          <groupId>org.hibernate.orm</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>6.5.2.Final</version>
+      </dependency>
   </dependencies>
 
-  <build>
+    <build>
     <plugins>
         <plugin>
             <groupId>org.flywaydb</groupId>
